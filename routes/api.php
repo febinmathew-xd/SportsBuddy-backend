@@ -50,3 +50,8 @@ Route::post('getturfbookingforturf', [UserController::class, 'getTurfBookingForT
 Route::post('getfeedbacks', [UserController::class, 'getFeedbacks']);
 Route::post('getcomplaints', [UserController::class, 'getComplaints']);
 Route::post('getcomplaintbyid', [UserController::class, 'getComplaintbById']);
+
+Route::post('getalltournaments', [UserController::class, 'getAllTournaments']);
+Route::post('gettournamentbyid', [UserController::class, 'getTournamentById']);
+
+Route::post('getTournamentBookingsforTurf', [UserController::class, 'getTournamentBookingsforTurf']);

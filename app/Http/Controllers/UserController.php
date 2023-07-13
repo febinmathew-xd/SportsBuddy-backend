@@ -110,13 +110,42 @@ class UserController extends Controller
         echo json_encode($result);
     }
 
-    public function getComplaintbById(Request $request) {
+   /*  public function getComplaintbById(Request $request) {
         $result = BD::table('complaints')
         ->select('*', 'complaints.id as complaintid')
         ->join('user', 'user.loginid', '=', 'complaints.userid')
         ->first();
         echo json_encode($result);
+    } */
+
+    public function getAllTournaments(Request $request) {
+        $result = DB::table('tournaments')
+        ->select('*', 'tournaments.id as tournamentid')
+        ->join('turf', 'turf.loginid', '=', 'tournaments.turfid')
+        ->get();
+        echo json_encode($result);
     }
- 
+
+    public function getTournamentById(Request $request) {
+        $result = DB::table('tournaments')
+        ->select('*', 'tournaments.id as tournamentid')
+        ->join('turf', 'turf.loginid', '=', 'tournaments.turfid')
+        ->where('tournaments.id', $request->id)
+        ->first();
+        echo json_encode($result);
+    }
+
+    public function getTournamentBookingsforTurf(Request $request) {
+        $result = DB::table('ticketbooking')
+        ->select("*", 'tournaments.id as trid', 'turf.id as tfid', 'ticketbooking.id as tbid', 'userid as usid', 'turf.username as turfname')
+        ->join('tournaments', 'tournaments.id', '=', 'ticketbooking.tournamentid')
+        ->join('turf', 'turf.id', '=', 'tournaments.turfid')
+        ->join('user', 'user.loginid', '=', 'ticketbooking.userid')
+        ->where('turf.id', $request->id)
+        ->get();
+
+         echo json_encode($result);
+    }
+     
 
 }
