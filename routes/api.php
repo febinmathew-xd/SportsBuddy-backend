@@ -55,3 +55,4 @@ Route::post('getalltournaments', [UserController::class, 'getAllTournaments']);
 Route::post('gettournamentbyid', [UserController::class, 'getTournamentById']);
 
 Route::post('getTournamentBookingsforTurf', [UserController::class, 'getTournamentBookingsforTurf']);
+Route::post('getTournamentBookingsforUser', [UserController::class, 'getTournamentBookingsforUser']);

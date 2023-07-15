@@ -141,7 +141,20 @@ class UserController extends Controller
         ->join('tournaments', 'tournaments.id', '=', 'ticketbooking.tournamentid')
         ->join('turf', 'turf.id', '=', 'tournaments.turfid')
         ->join('user', 'user.loginid', '=', 'ticketbooking.userid')
-        ->where('turf.id', $request->id)
+        ->where('tournaments.turfid', $request->id)
+        ->get();
+
+         echo json_encode($result);
+    }
+     
+    public function getTournamentBookingsforUser(Request $request) {
+        $result = DB::table('ticketbooking')
+        ->select("*", 'tournaments.id as trid', 'turf.id as tfid', 'ticketbooking.id as tbid', 'userid as usid', 'turf.username as turfname','turf.contact as turfcontact')
+        ->join('tournaments', 'tournaments.id', '=', 'ticketbooking.tournamentid')
+        ->join('turf', 'turf.id', '=', 'tournaments.turfid')
+        ->join('user', 'user.loginid', '=', 'ticketbooking.userid')
+        ->where('user.id', $request->id)
+        ->orderBy('ticketbooking.id')
         ->get();
 
          echo json_encode($result);
