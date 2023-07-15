@@ -110,13 +110,15 @@ class UserController extends Controller
         echo json_encode($result);
     }
 
-   /*  public function getComplaintbById(Request $request) {
-        $result = BD::table('complaints')
-        ->select('*', 'complaints.id as complaintid')
+    public function getComplaintbById(Request $request) {
+        $result = DB::table('complaints')
+        ->select('*', 'complaints.id as complaintid', 'turf.id as turfid', 'turf.username as turfname', 'turf.contact as turfcontact', 'turf.address as turflocation', 'user.username as userdisplayname', 'user.address as userlocation', 'user.contact as usercontact')
         ->join('user', 'user.loginid', '=', 'complaints.userid')
+        ->join('turf', 'turf.id', '=', 'complaints.turfid')
+        ->where('complaints.id' , $request->id)
         ->first();
         echo json_encode($result);
-    } */
+    } 
 
     public function getAllTournaments(Request $request) {
         $result = DB::table('tournaments')
