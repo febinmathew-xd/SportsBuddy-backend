@@ -120,6 +120,17 @@ class UserController extends Controller
         echo json_encode($result);
     } 
 
+    public function getComplaintsbByUserId(Request $request) {
+        $result = DB::table('complaints')
+        ->select('*', 'complaints.id as complaintid', 'turf.id as turfid', 'turf.username as turfname', 'turf.contact as turfcontact', 'turf.address as turflocation', 'user.username as userdisplayname', 'user.address as userlocation', 'user.contact as usercontact')
+        ->join('user', 'user.loginid', '=', 'complaints.userid')
+        ->join('turf', 'turf.id', '=', 'complaints.turfid')
+        ->where('user.id' , $request->id)
+        ->orderBy('complaints.id','desc')
+        ->get();
+        echo json_encode($result);
+    } 
+
     public function getAllTournaments(Request $request) {
         $result = DB::table('tournaments')
         ->select('*', 'tournaments.id as tournamentid')
@@ -160,6 +171,12 @@ class UserController extends Controller
         ->get();
 
          echo json_encode($result);
+    }
+
+    public function getAllNews(Request $request){
+        DB::table('news')
+        ->orderBy('news.id','desc')
+        ->get();
     }
      
 
